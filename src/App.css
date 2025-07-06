@@ -1,0 +1,60 @@
+@font-face {
+    font-family: "Abadi MT Std Extra Light It";
+    src: url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.eot");
+    src: url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/51a69624ea6dd3b2f3e808c39d367a95.svg#Abadi MT Std Extra Light It")format("svg");
+}
+@font-face {
+  font-family: 'Arial Nova Cond Light';
+  src: url('/fonts/ArialNovaCondLight.woff2') format('woff2'),
+       url('/fonts/ArialNovaCondLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
