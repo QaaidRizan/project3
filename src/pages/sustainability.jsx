@@ -76,7 +76,58 @@ const Sustainability = () => {
         <Header />
       </div>
       <div className="pt-20">
-        {/* Left: Image - left aligned, half of the page */}
+        {/* Mobile Image Carousel */}
+        <div className="block lg:hidden w-full mb-8">
+          <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl rounded-xl mx-auto">
+            {/* White glowing shade */}
+            <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
+            {/* Blue light accents */}
+            <div className="absolute top-0 right-1/4 w-48 h-48 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div className="absolute bottom-0 left-1/4 w-60 h-60 rounded-full bg-blue-600/10 blur-3xl"></div>
+            {/* Animated image transition */}
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                id="mobileCurrentImage"
+                src={images[currentImage]}
+                alt="Sustainability section"
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 1,
+                  zIndex: 10,
+                  objectPosition: "center",
+                  transform: "scale(1.0) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                key={currentImage}
+              />
+              <img
+                id="mobileNextImage"
+                src={images[(currentImage + 1) % images.length]}
+                alt=""
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 0,
+                  zIndex: 9,
+                  objectPosition: "center",
+                  transform: "scale(1.05) translateY(10px) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                aria-hidden="true"
+              />
+            </div>
+            <div className="absolute bottom-4 left-0 w-full flex justify-center z-20 gap-2">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                    currentImage === index ? 'bg-white scale-110' : 'bg-white/40 scale-100'
+                  }`}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Desktop left-side image */}
         <div className="hidden lg:block fixed top-0 left-0 w-1/2 h-full z-0">
           <div className="relative w-full h-full overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl">
             <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
@@ -129,7 +180,7 @@ const Sustainability = () => {
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 mb-0">
               <div className="hidden lg:block"></div>
               {/* Right: Content */}
-              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl ml-80 lg:ml-0 lg:-mr-16 mt-0 lg:mt-0">
+              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl mx-auto lg:ml-0 lg:-mr-16 mt-0 lg:mt-0 w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-none">
                 <div className="absolute -inset-1 bg-gradient-to-tr from-black/40 via-white/5 to-black/30 rounded-[inherit] blur-md opacity-70 z-0"></div>
                 <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/10 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -152,45 +203,45 @@ const Sustainability = () => {
                     <img
                       src={sustainabilitmaine}
                       alt="Sustainability at Terrene"
-                      className="w-full h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
+                      className="w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
                     />
                     <div className="absolute inset-0 bg-[#0E75A0]/40"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/40 via-black/10 to-transparent z-10"></div>
                     <div className="absolute bottom-0 left-0 w-full p-4 md:p-6">
                       <div className="max-w-[2400px] mx-auto">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Building a Greener Tomorrow</h3>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Building a Greener Tomorrow</h3>
                         <div className="w-16 h-1 bg-white rounded-full"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 {/* Content container */}
-                <div className="relative z-10 flex flex-col items-start h-full px-8 lg:px-11 xl:px-16 pt-8">
+                <div className="relative z-10 flex flex-col items-start h-full px-4 sm:px-6 md:px-8 lg:px-11 xl:px-16 pt-6 sm:pt-8">
                   <div className="mb-8">
-                    <h2 className="text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                    <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                       Sustainability at <span className="text-primary-300">Terrene</span>
                     </h2>
-                    <p className="text-white text-xl mb-4 text-left max-w-4xl leading-relaxed">
+                    <p className="text-white text-base sm:text-lg md:text-xl mb-4 text-left max-w-4xl leading-relaxed">
                       At Terrene, sustainability is at the core of everything we do. We are committed to creating solutions that protect the environment, support communities, and ensure a better future for generations to come.
                     </p>
                   </div>
                   <div className="w-full">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-left">Our Sustainability Focus</h2>
-                    <ul className="space-y-4 max-w-4xl">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-left">Our Sustainability Focus</h2>
+                    <ul className="space-y-3 sm:space-y-4 max-w-4xl">
                       {/* Philosophy Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['philosophy']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('philosophy')}
                         >
-                          <span className="text-xl font-semibold text-white">Our Philosophy</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Our Philosophy</span>
                           <ChevronDown
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['philosophy'] ? 'rotate-180' : ''
                             }`}
                           />
@@ -198,15 +249,15 @@ const Sustainability = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['philosophy']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               We believe that sustainable development is essential for the well-being of people and the planet. Our philosophy is to integrate eco-friendly practices into every stage of our projects.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               By prioritizing resource efficiency, renewable materials, and innovative design, we strive to minimize our environmental footprint while maximizing positive impact.
                             </p>
                           </div>
@@ -215,16 +266,16 @@ const Sustainability = () => {
                       {/* Initiatives Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['initiatives']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('initiatives')}
                         >
-                          <span className="text-xl font-semibold text-white">Key Initiatives</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Key Initiatives</span>
                           <ChevronDown
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['initiatives'] ? 'rotate-180' : ''
                             }`}
                           />
@@ -232,15 +283,15 @@ const Sustainability = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['initiatives']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               Our sustainability initiatives include energy-efficient building designs, water conservation strategies, and the use of low-impact construction methods.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               We collaborate with partners and clients to implement green technologies and promote sustainable lifestyles in the communities we serve.
                             </p>
                           </div>
@@ -249,16 +300,16 @@ const Sustainability = () => {
                       {/* Impact Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['impact']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('impact')}
                         >
-                          <span className="text-xl font-semibold text-white">Our Impact</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Our Impact</span>
                           <ChevronDown
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['impact'] ? 'rotate-180' : ''
                             }`}
                           />
@@ -266,18 +317,18 @@ const Sustainability = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['impact']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               Through our projects, we have reduced carbon emissions, improved energy efficiency, and enhanced biodiversity in urban and rural environments.
                             </p>
-                            <p className="mb-4 text-lg">
+                            <p className="mb-4 text-base sm:text-lg">
                               We measure our success by the positive changes we bring to the environment and the communities we engage with.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               Join us on our journey towards a sustainable future, where every action counts and together, we can make a difference.
                             </p>
                           </div>

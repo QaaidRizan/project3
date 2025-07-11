@@ -86,8 +86,53 @@ const About = () => {
       >
         <Header />
       </div>
+      
       <div className="pt-20">
-        {/* Left: Image - left aligned, half of the page */}
+        {/* Mobile Image Carousel - Only visible on mobile */}
+        <div className="block lg:hidden w-full mb-8">
+          <div className="relative w-full h-[300px] overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl rounded-xl mx-auto">
+            {/* White glowing shade */}
+            <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
+            {/* Blue light accents */}
+            <div className="absolute top-0 right-1/4 w-48 h-48 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div className="absolute bottom-0 left-1/4 w-60 h-60 rounded-full bg-blue-600/10 blur-3xl"></div>
+            
+            {/* Animated image transition */}
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                id="mobileCurrentImage"
+                src={images[currentImage]}
+                alt="About section"
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 1,
+                  zIndex: 10,
+                  objectPosition: "center",
+                  transform: "scale(1.0) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                key={currentImage}
+              />
+              
+              <img
+                id="mobileNextImage"
+                src={images[(currentImage + 1) % images.length]}
+                alt=""
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 0,
+                  zIndex: 9,
+                  objectPosition: "center",
+                  transform: "scale(1.05) translateY(10px) translateZ(0)", 
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop left-side image - only visible on lg screens and up */}
         <div className="hidden lg:block fixed top-0 left-0 w-1/2 h-full z-0">
           <div className="relative w-full h-full overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl">
             {/* White glowing shade */}
@@ -129,20 +174,6 @@ const About = () => {
                 aria-hidden="true"
               />
             </div>
-
-            {/* Remove this block to remove the dots below the image carousel */}
-            {/*
-            <div className="absolute bottom-8 left-0 w-full flex justify-center z-20 gap-2">
-              {images.map((_, index) => (
-                <div 
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                    currentImage === index ? 'bg-white scale-110' : 'bg-white/40 scale-100'
-                  }`}
-                ></div>
-              ))}
-            </div>
-            */}
           </div>
         </div>
         
@@ -150,11 +181,11 @@ const About = () => {
           <div className="w-full max-w-[2400px] mx-auto px-4 md:px-12 lg:px-24 relative z-20">
             {/* Main About Section */}
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 mb-0">
-              {/* Empty column for spacing on small screens */}
+              {/* Empty column for spacing on desktop */}
               <div className="hidden lg:block"></div>
               
               {/* Right: Content - adjust padding to accommodate image */}
-              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl ml-80 lg:ml-0 lg:-mr-16 mt-0 lg:mt-0">
+              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl mx-auto lg:ml-0 lg:-mr-16 mt-0 lg:mt-0 w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-none">
                 {/* Keep existing shading effects */}
                 <div className="absolute -inset-1 bg-gradient-to-tr from-black/40 via-white/5 to-black/30 rounded-[inherit] blur-md opacity-70 z-0"></div>
                 <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/10 to-transparent"></div>
@@ -187,11 +218,11 @@ const About = () => {
                 {/* About image that fills top and extends to corners */}
                 <div className="w-full overflow-hidden rounded-t-3xl">
                   <div className="relative">
-                    {/* Increased image height */}
+                    {/* Increased image height with responsive heights */}
                     <img 
                       src={aboutImage} 
                       alt="About Terrene Engineering" 
-                      className="w-full h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
+                      className="w-full h-[280px] sm:h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
                     />
                     
                     {/* Blue overlay to match reference image */}
@@ -203,7 +234,7 @@ const About = () => {
                     {/* Content container aligned to bottom like reference */}
                     <div className="absolute bottom-0 left-0 w-full p-4 md:p-6">
                       <div className="max-w-[2400px] mx-auto">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Engineering Excellence</h3>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Engineering Excellence</h3>
                         <div className="w-16 h-1 bg-white rounded-full"></div>
                       </div>
                     </div>
@@ -211,13 +242,13 @@ const About = () => {
                 </div>
                 
                 {/* Content container - with proper padding now that image is at the top */}
-                <div className="relative z-10 flex flex-col items-start h-full px-8 lg:px-11 xl:px-16 pt-8">
+                <div className="relative z-10 flex flex-col items-start h-full px-4 sm:px-6 md:px-8 lg:px-11 xl:px-16 pt-6 sm:pt-8">
                   {/* Company Introduction - reduce margin */}
-                  <div className="mb-8">
-                    <h2 className="text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                  <div className="mb-6 sm:mb-8">
+                    <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
                       About <span className="text-primary-300">Terrene Engineering</span>
                     </h2>
-                    <p className="text-white text-xl mb-4 text-left max-w-4xl leading-relaxed">
+                    <p className="text-white text-base sm:text-lg md:text-xl mb-4 text-left max-w-4xl leading-relaxed">
                       Terrene Engineering (Private) Limited is a leading engineering consultancy firm 
                       established with a vision to provide innovative and sustainable engineering solutions. 
                       With over two decades of experience in the industry, we have built a reputation 
@@ -227,21 +258,21 @@ const About = () => {
 
                   {/* Mission, Vision, Team Dropdowns - reduce spacing */}
                   <div className="w-full">
-                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-left">Our Company</h2>
-                    <ul className="space-y-4 max-w-4xl">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-left">Our Company</h2>
+                    <ul className="space-y-3 sm:space-y-4 max-w-4xl">
                       {/* Mission Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['mission']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('mission')}
                         >
-                          <span className="text-xl font-semibold text-white">Our Mission</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Our Mission</span>
                           <ChevronDown 
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['mission'] ? 'rotate-180' : ''
                             }`} 
                           />
@@ -249,15 +280,15 @@ const About = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['mission']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               Our mission is to deliver innovative and sustainable engineering solutions that exceed client expectations while maintaining the highest standards of quality, safety, and environmental responsibility.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               We aim to contribute positively to the built environment through thoughtful design, technical excellence, and collaborative partnerships with our clients and communities.
                             </p>
                           </div>
@@ -267,16 +298,16 @@ const About = () => {
                       {/* Vision Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['vision']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('vision')}
                         >
-                          <span className="text-xl font-semibold text-white">Our Vision</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Our Vision</span>
                           <ChevronDown 
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['vision'] ? 'rotate-180' : ''
                             }`} 
                           />
@@ -284,15 +315,15 @@ const About = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['vision']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               To be recognized globally as a leading engineering firm that shapes the future of sustainable infrastructure and creates spaces that inspire, endure, and enhance quality of life.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               We envision a world where engineering excellence and environmental stewardship go hand in hand, creating lasting value for generations to come.
                             </p>
                           </div>
@@ -302,16 +333,16 @@ const About = () => {
                       {/* Team Section */}
                       <li>
                         <div
-                          className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                          className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                             openSections['team']
                               ? 'bg-primary/10 border-white rounded-t-lg'
                               : 'hover:bg-white/10 rounded-lg'
                           }`}
                           onClick={() => handleToggle('team')}
                         >
-                          <span className="text-xl font-semibold text-white">Our Team</span>
+                          <span className="text-lg sm:text-xl font-semibold text-white">Our Team</span>
                           <ChevronDown 
-                            className={`w-6 h-6 text-white transition-transform duration-200 ${
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                               openSections['team'] ? 'rotate-180' : ''
                             }`} 
                           />
@@ -319,18 +350,18 @@ const About = () => {
                         <div
                           className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                             openSections['team']
-                              ? 'max-h-96 opacity-100 rounded-b-lg'
+                              ? 'max-h-[400px] opacity-100 rounded-b-lg'
                               : 'max-h-0 opacity-0'
                           }`}
                         >
-                          <div className="p-6 bg-white/10 text-white">
-                            <p className="mb-4 text-lg">
+                          <div className="p-4 sm:p-6 bg-white/10 text-white">
+                            <p className="mb-4 text-base sm:text-lg">
                               Our team comprises experienced professional engineers, designers, and technical specialists who bring diverse expertise and perspectives to every project.
                             </p>
-                            <p className="mb-4 text-lg">
+                            <p className="mb-4 text-base sm:text-lg">
                               We pride ourselves on our collaborative approach, combining technical excellence with creative problem-solving to deliver exceptional results for our clients.
                             </p>
-                            <p className="text-lg">
+                            <p className="text-base sm:text-lg">
                               With ongoing professional development and a culture of innovation, our team stays at the forefront of industry advancements and best practices.
                             </p>
                           </div>

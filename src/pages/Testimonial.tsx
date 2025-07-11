@@ -141,17 +141,54 @@ const Testimonial = () => {
         <Header />
       </div>
       <div className="pt-20">
-        {/* Left: Image - left aligned, half of the page */}
-        <div className="hidden lg:block fixed top-0 left-0 w-1/2 h-full z-0">
-          <div className="relative w-full h-full overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl">
+        {/* Mobile Image Carousel */}
+        <div className="block lg:hidden w-full mb-8">
+          <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl rounded-xl mx-auto">
             {/* White glowing shade */}
             <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
             {/* Blue light accents */}
+            <div className="absolute top-0 right-1/4 w-48 h-48 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div className="absolute bottom-0 left-1/4 w-60 h-60 rounded-full bg-blue-600/10 blur-3xl"></div>
+            {/* Animated image transition */}
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                id="mobileCurrentImage"
+                src={images[currentImage]}
+                alt="Testimonial section"
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 1,
+                  zIndex: 10,
+                  objectPosition: "center",
+                  transform: "scale(1.0) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                key={currentImage}
+              />
+              <img
+                id="mobileNextImage"
+                src={images[(currentImage + 1) % images.length]}
+                alt=""
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 0,
+                  zIndex: 9,
+                  objectPosition: "center",
+                  transform: "scale(1.05) translateY(10px) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+        {/* Desktop left-side image */}
+        <div className="hidden lg:block fixed top-0 left-0 w-1/2 h-full z-0">
+          <div className="relative w-full h-full overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl">
+            <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
             <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl"></div>
             <div className="absolute bottom-0 left-1/4 w-120 h-120 rounded-full bg-blue-600/10 blur-3xl"></div>
-            {/* Animated image transition - improved with scale and movement effects */}
             <div className="relative w-full h-full overflow-hidden">
-              {/* Current image - fade out and scale down when transitioning */}
               <img
                 id="currentImage"
                 src={images[currentImage]}
@@ -166,8 +203,6 @@ const Testimonial = () => {
                 }}
                 key={currentImage}
               />
-              
-              {/* Next image - starts zoomed in and slides up while fading in */}
               <img
                 id="nextImage"
                 src={images[(currentImage + 1) % images.length]}
@@ -177,7 +212,7 @@ const Testimonial = () => {
                   opacity: 0,
                   zIndex: 9,
                   objectPosition: "center",
-                  transform: "scale(1.05) translateY(10px) translateZ(0)", 
+                  transform: "scale(1.05) translateY(10px) translateZ(0)",
                   transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
                 }}
                 aria-hidden="true"
@@ -185,104 +220,78 @@ const Testimonial = () => {
             </div>
           </div>
         </div>
-        
         <main className="pt-0 md:pt-0 pb-0 md:pb-0">
           <div className="w-full max-w-[2400px] mx-auto px-4 md:px-12 lg:px-24 relative z-20">
             {/* Main Testimonial Section */}
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 mb-0">
               <div className="hidden lg:block"></div>
-              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl ml-80 lg:ml-0 lg:-mr-16 mt-0 lg:mt-0">
-                {/* Keep existing shading effects */}
+              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl mx-auto lg:ml-0 lg:-mr-16 mt-0 lg:mt-0 w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-none">
+                {/* Shading effects */}
                 <div className="absolute -inset-1 bg-gradient-to-tr from-black/40 via-white/5 to-black/30 rounded-[inherit] blur-md opacity-70 z-0"></div>
                 <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/10 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/20 to-transparent"></div>
                 <div className="absolute -right-8 top-1/3 w-40 h-40 rounded-full bg-white/10 blur-2xl"></div>
                 <div className="absolute -left-8 bottom-1/3 w-40 h-40 rounded-full bg-black/20 blur-2xl"></div>
-                
-                {/* Keep existing light effects */}
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl"></div>
                   <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/20 rounded-full blur-2xl"></div>
                   <div className="absolute bottom-1/3 right-1/4 w-32 h-32 bg-white/20 rounded-full blur-xl"></div>
                 </div>
-
-                {/* Add additional background shading effects around the content */}
                 <div className="hidden lg:block absolute -inset-12 z-0">
-                  {/* Top-right glow */}
                   <div className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-blue-500/5 blur-[100px]"></div>
-                  
-                  {/* Bottom-left glow */}
                   <div className="absolute bottom-1/4 -left-24 w-96 h-96 rounded-full bg-cyan-400/5 blur-[120px]"></div>
-                  
-                  {/* Diagonal accent */}
                   <div className="absolute top-0 right-1/3 bottom-0 left-0 bg-gradient-to-br from-white/3 via-transparent to-transparent rotate-12 opacity-30 blur-3xl"></div>
-                  
-                  {/* Subtle vertical light beam */}
                   <div className="absolute top-0 left-1/2 h-full w-40 bg-gradient-to-b from-white/5 via-white/2 to-transparent blur-2xl"></div>
                 </div>
-                
-                {/* About image that fills top and extends to corners */}
+                {/* Top image banner */}
                 <div className="w-full overflow-hidden rounded-t-3xl">
                   <div className="relative">
-                    {/* Increased image height */}
                     <img 
                       src={aboutImage} 
                       alt="Customer Testimonials" 
-                      className="w-full h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
+                      className="w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
                     />
-                    
-                    {/* Blue overlay to match reference image */}
                     <div className="absolute inset-0 bg-[#0E75A0]/40"></div>
-                    
-                    {/* Construction image specific gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                    
-                    {/* Content container aligned to bottom like reference */}
                     <div className="absolute bottom-0 left-0 w-full p-4 md:p-6">
                       <div className="max-w-[2400px] mx-auto">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Customer Testimonials</h3>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Customer Testimonials</h3>
                         <div className="w-16 h-1 bg-white rounded-full"></div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                {/* Content container - with proper padding now that image is at the top */}
-                <div className="relative z-10 flex flex-col items-start h-full px-8 lg:px-11 xl:px-16 pt-8">
-                  {/* Company Introduction - reduce margin */}
+                {/* Content container */}
+                <div className="relative z-10 flex flex-col items-start h-full px-4 sm:px-6 md:px-8 lg:px-11 xl:px-16 pt-6 sm:pt-8">
                   <div className="mb-8">
-                    <h2 className="text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                    <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                       What Our <span className="text-primary-300">Customers Say</span>
                     </h2>
-                    <p className="text-white text-xl mb-4 text-left max-w-4xl leading-relaxed">
+                    <p className="text-white text-base sm:text-lg md:text-xl mb-4 text-left max-w-4xl leading-relaxed">
                       Real feedback from our valued customers around the world.
                     </p>
                   </div>
-
-                  {/* Mission, Vision, Team Dropdowns - reduce spacing */}
                   {/* Customer Reviews Section */}
                   <div className="w-full">
-  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 text-left">Customer Reviews</h2>
-  <ul className="space-y-8 max-w-4xl">
-    {testimonials.map((testimonial) => (
-      <li key={testimonial.id} className="p-6 bg-white/10 rounded-lg border border-white/20">
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold text-white">
-            {testimonial.name} <span className="text-white/70 text-sm">({testimonial.country})</span>
-          </h3>
-        </div>
-        <p className="mb-4 text-lg italic">"{testimonial.testimonial}"</p>
-      </li>
-    ))}
-  </ul>
-</div>
-
-{/* Feedback Button */}
-<div className="mt-16 flex justify-center">
-  <Button size="lg" className="bg-[#0E75A0] text-white hover:bg-[#0a5a7a]">
-    Send Your Feedback
-  </Button>
-</div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 text-left">Customer Reviews</h2>
+                    <ul className="space-y-8 max-w-4xl">
+                      {testimonials.map((testimonial) => (
+                        <li key={testimonial.id} className="p-6 bg-white/10 rounded-lg border border-white/20">
+                          <div className="mb-4">
+                            <h3 className="text-lg sm:text-xl font-semibold text-white">
+                              {testimonial.name} <span className="text-white/70 text-sm">({testimonial.country})</span>
+                            </h3>
+                          </div>
+                          <p className="mb-4 text-base sm:text-lg italic">"{testimonial.testimonial}"</p>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-12 flex justify-center">
+                      <Button size="lg" className="bg-[#0E75A0] text-white hover:bg-[#0a5a7a]">
+                        Send Your Feedback
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

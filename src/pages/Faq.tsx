@@ -11,15 +11,12 @@ import faq3 from '../assert/Faq/faq3.png';
 import faq4 from '../assert/Faq/faq4.png';
 import faq5 from '../assert/Faq/faq5.png';
 
-
-
-
 const Faq = () => {
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({});
   const [showHeader, setShowHeader] = useState(true);
   const lastScrollY = useRef(0);
   const [currentImage, setCurrentImage] = useState(0);
-  const images = [faq4 , faq1, faq5];
+  const images = [faq4, faq1, faq5];
 
   // FAQ data
   const faqItems = [
@@ -103,7 +100,48 @@ const Faq = () => {
         <Header />
       </div>
       <div className="pt-20">
-        {/* Left: Image - left aligned, half of the page */}
+        {/* Mobile Image Carousel */}
+        <div className="block lg:hidden w-full mb-8">
+          <div className="relative w-full h-[260px] sm:h-[300px] overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl rounded-xl mx-auto">
+            {/* White glowing shade */}
+            <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
+            {/* Blue light accents */}
+            <div className="absolute top-0 right-1/4 w-48 h-48 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div className="absolute bottom-0 left-1/4 w-60 h-60 rounded-full bg-blue-600/10 blur-3xl"></div>
+            {/* Animated image transition */}
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                id="mobileCurrentImage"
+                src={images[currentImage]}
+                alt="FAQ section"
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 1,
+                  zIndex: 10,
+                  objectPosition: "center",
+                  transform: "scale(1.0) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                key={currentImage}
+              />
+              <img
+                id="mobileNextImage"
+                src={images[(currentImage + 1) % images.length]}
+                alt=""
+                className="w-full h-full object-cover absolute inset-0"
+                style={{
+                  opacity: 0,
+                  zIndex: 9,
+                  objectPosition: "center",
+                  transform: "scale(1.05) translateY(10px) translateZ(0)",
+                  transition: 'opacity 1.5s ease-in-out, transform 2s ease-out'
+                }}
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+        {/* Desktop left-side image */}
         <div className="hidden lg:block fixed top-0 left-0 w-1/2 h-full z-0">
           <div className="relative w-full h-full overflow-hidden border-2 border-white/10 bg-black/40 shadow-2xl">
             <div className="absolute -inset-4 bg-gradient-to-l from-white/30 via-white/10 to-white/0 rounded-none blur-2xl opacity-80 z-0"></div>
@@ -145,8 +183,8 @@ const Faq = () => {
           <div className="w-full max-w-[2400px] mx-auto px-4 md:px-12 lg:px-24 relative z-20">
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 mb-0">
               <div className="hidden lg:block"></div>
-              {/* Right: Content - same alignment and top image as About */}
-              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl ml-80 lg:ml-0 lg:-mr-16 mt-0 lg:mt-0">
+              {/* FAQ Content */}
+              <div className="flex flex-col justify-start p-0 pt-0 pb-8 lg:pb-11 xl:pb-16 bg-gradient-to-br from-[#0E75A0] to-[#0a5a7a] rounded-3xl border-2 border-white/10 relative overflow-hidden shadow-2xl mx-auto lg:ml-0 lg:-mr-16 mt-0 lg:mt-0 w-full max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-none">
                 {/* Shading and background effects */}
                 <div className="absolute -inset-1 bg-gradient-to-tr from-black/40 via-white/5 to-black/30 rounded-[inherit] blur-md opacity-70 z-0"></div>
                 <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/10 to-transparent"></div>
@@ -170,36 +208,36 @@ const Faq = () => {
                     <img
                       src={aboutImage}
                       alt="FAQ Banner"
-                      className="w-full h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
+                      className="w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[480px] object-cover object-center"
                     />
                     <div className="absolute inset-0 bg-[#0E75A0]/40"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/40 via-black/10 to-transparent z-10"></div>
                     <div className="absolute bottom-0 left-0 w-full p-4 md:p-6">
                       <div className="max-w-[2400px] mx-auto">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Frequently Asked Questions</h3>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">Frequently Asked Questions</h3>
                         <div className="w-16 h-1 bg-white rounded-full"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 {/* FAQ Dropdowns */}
-                <div className="relative z-10 flex flex-col items-start h-full px-8 lg:px-11 xl:px-16 pt-8">
+                <div className="relative z-10 flex flex-col items-start h-full px-4 sm:px-6 md:px-8 lg:px-11 xl:px-16 pt-6 sm:pt-8">
                   <div className="mb-8 w-full">
-                    <ul className="space-y-4 max-w-4xl">
+                    <ul className="space-y-3 sm:space-y-4 max-w-4xl">
                       {faqItems.map((item, index) => (
                         <li key={index}>
                           <div
-                            className={`flex items-center justify-between px-4 py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
+                            className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border border-white bg-white/5 cursor-pointer transition-all duration-300 ${
                               openSections[index]
                                 ? 'bg-primary/10 border-white rounded-t-lg'
                                 : 'hover:bg-white/10 rounded-lg'
                             }`}
                             onClick={() => handleToggle(index)}
                           >
-                            <span className="text-lg font-semibold text-white">{item.question}</span>
+                            <span className="text-base sm:text-lg font-semibold text-white">{item.question}</span>
                             <ChevronDown
-                              className={`w-6 h-6 text-white transition-transform duration-200 ${
+                              className={`w-5 h-5 sm:w-6 sm:h-6 text-white transition-transform duration-200 ${
                                 openSections[index] ? 'rotate-180' : ''
                               }`}
                             />
@@ -207,12 +245,12 @@ const Faq = () => {
                           <div
                             className={`transition-all duration-300 overflow-hidden border-x border-b border-white ${
                               openSections[index]
-                                ? 'max-h-96 opacity-100 rounded-b-lg'
+                                ? 'max-h-[400px] opacity-100 rounded-b-lg'
                                 : 'max-h-0 opacity-0'
                             }`}
                           >
-                            <div className="p-6 bg-white/10 text-white">
-                              <p className="text-base">{item.answer}</p>
+                            <div className="p-4 sm:p-6 bg-white/10 text-white">
+                              <p className="text-base sm:text-lg">{item.answer}</p>
                             </div>
                           </div>
                         </li>
