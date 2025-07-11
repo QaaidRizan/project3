@@ -103,10 +103,7 @@ const Header = ({ mode = 'transparent', className = '', onNavigate }: HeaderProp
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/">
-              <div
-                className="ml-[-25px]" // Move logo further to the left
-                style={{ height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
-              >
+              <div className="flex items-center justify-flex-start h-16">
                 <LogoTriangle />
               </div>
             </Link>

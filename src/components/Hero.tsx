@@ -126,7 +126,7 @@ const Hero = () => {
           <h1 className="font-extrabold text-white mb-2 leading-tight drop-shadow-2xl"
               style={{ fontSize: "4.9rem", lineHeight: 0.85 }}>
             Shaping tomorrow with<br />
-            <span className="font-extrabold" style={{ fontSize: "3.6rem", marginTop: "-0.5rem", display: "inline-block" }}>
+            <span className="font-extrabold" style={{ fontSize: "3.6rem", marginTop: "0.2rem", display: "inline-block" }}>
               Visionary engineering
             </span>
           </h1>
